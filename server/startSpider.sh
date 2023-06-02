@@ -1,0 +1,1 @@
+nohup python3.10 ./spiderService.py >/dev/null 2>&1 &

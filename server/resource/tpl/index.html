@@ -1,0 +1,20 @@
+<!--
+ * @Author: xx
+ * @Date: 2023-05-17 16:21:44
+ * @LastEditTime: 2023-05-17 18:17:00
+ * @Description: 
+-->
+{{define "head"}}
+    <style>
+        .hello{ color: red;}
+        hr{ border: 1px #ccc dashed;}
+    </style>
+{{end}}
+
+
+{{define "body"}}
+    <h1 class="hello">This is content!!!!</h1>
+    <p>12323 + 533 = {{call $.add 122 333}}</p>
+    <!-- <hr> -->
+    <!-- <p><a href="/page">Page render</a></p> -->
+{{end}}

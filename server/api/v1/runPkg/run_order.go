@@ -286,7 +286,7 @@ func (runOrderApi *RunOrderApi) GetOrderNums(c *gin.Context) {
 	}()
 
 	select {
-	case <-time.After(time.Second * 8): // 等待5秒超时
+	case <-time.After(time.Second * 15): // 等待15秒超时
 		response.FailWithMessage("获取工单号码超时，请稍后再试", c)
 	case result := <-resultChan: // 成功获取工单号码
 		if errMsg, ok := result["error"]; ok {

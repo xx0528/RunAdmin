@@ -34,10 +34,7 @@ def get_data():
     step = request.form["step"]
     psw = request.form["orderPsw"]
     orderType = request.form["orderType"]
-    print("url --- " + url)
-    print("step --- " + step)
-    print("psw --- " + psw)
-    print("orderType --- " + orderType)
+    print("开始提取工单 orderType = " + orderType + " psw=" + psw + " url = " + url + '\n')
     if step == "firstStep":
         # 云控工单
         if orderType == OrderType.Share:
@@ -56,6 +53,7 @@ def get_data():
             data = get_URL(url, psw)
 
         data["orderType"] = orderType
+        print("提取工单结束 第一步 返回---" + json.dumps(data) + '\n\n')
         return data
     if step == "secondStep":
         # 云控工单
@@ -75,8 +73,8 @@ def get_data():
             data = get_URL2(url)
         
         data["orderType"] = orderType
+        print("提取工单结束 第二步 返回---" + json.dumps(data) + '\n\n')
         return data
-
 def get_Share(url):
     index_html_index = url.find("index.html")
     base_url = url[:index_html_index]
@@ -84,18 +82,16 @@ def get_Share(url):
     newUrl = base_url + "/api_yinliu_count.html?token=" + token + "&page=1&limit=200&is_repet=1"
     scraper = cloudscraper.create_scraper(disableCloudflareV1=True)
     response = scraper.get(newUrl, allow_redirects=True)
-    # print('response.status_code -- ' + str(response.status_code))
-    # print("response.text --- " + response.text)
-
+    print("share 工单 status_code = " + str(response.status_code) + '\n')
     if response.status_code != 200:
         new_data = {
             "code": response.status_code,
             "data": {},
-            "msg": "访问失败" + url,
+            "msg": "访问失败 " + url,
         }
         return new_data
     data = json.loads(response.text)
-
+    print("share 工单 data code = " + str(data["code"]) + '\n')
     new_data = {}
     new_data["code"] = data["code"]
     new_data["msg"] = "成功"
@@ -132,49 +128,43 @@ def get_Share(url):
     return new_data
 
 def get_KF007(url, psw):
-    print('url get_KF007 -------' + url)
 
     scraper = cloudscraper.create_scraper(disableCloudflareV1=True)
     response = scraper.get(url, allow_redirects=True)
-    print('response.status_code -- ' + str(response.status_code))
     location = response.url
-    print("location --- " + location)
+    print("KF007 工单1  status_code = " + str(response.status_code) + " location = " + location + '\n')
 
     order_id = ""
     matchOrderId = re.search(r"shared-order/(.*?)\?u=", location)
     if matchOrderId:
         order_id = matchOrderId.group(1)
-        
-    print("order_id:", order_id)
 
     order_u = ""
     matchOrderU = re.search(r"\?u=(.*?)&code=", location)
     if matchOrderU:
         order_u = matchOrderU.group(1)
-        
-    print("order_u:", order_u)
 
     code = ""
     matchCode = re.search(r"&code=(.*)", location)
     if matchCode:
         code = matchCode.group(1)
 
-    print("code -- " + code)
+    print("KF007 工单1  order_id = " + order_id + " order_u = " + order_u + " code = " + code + '\n')
     #https://kf.007.tools/shared-order/efe4b9b2f249fc117444b8e2e9f1cf67868f10b0a4a4e769d5d1d8cdebf2a71a?u=0cb692081b8e43818c849ad960e4d71c&code=LXJimlFK
     #https://kf.007.tools/counter-api/detail/user-detail/get_share_list?order_id=efe4b9b2f249fc117444b8e2e9f1cf67868f10b0a4a4e769d5d1d8cdebf2a71a&uuid=0cb692081b8e43818c849ad960e4d71c&code=LXJimlFK&share_pwd=qq123&page=1&perpage=50
     newUrl = "https://kf.007.tools/counter-api/detail/user-detail/get_share_list?order_id=" + order_id + "&uuid=" + order_u + "&code=" + code + "&share_pwd=" + psw + "&page=1&perpage=200"
     return get_KF0072(newUrl)
 
 def get_KF0072(url):
-    print('url --- 2  --' + url)
     scraper = cloudscraper.create_scraper(disableCloudflareV1=True)
     response = scraper.get(url)
-    print('response.status_code -- ' + str(response.status_code))
+    print("KF007 工单2 访问 url = " + url + '\n')
+    print('KF007 工单2 status_code = ' + str(response.status_code) + '\n')
     if response.status_code != 200:
         redata = {
             "code": response.status_code,
             "data": {},
-            "msg": "访问失败" + url,
+            "msg": "访问失败 " + url,
         }
         return redata
     text = response.text
@@ -187,7 +177,7 @@ def get_KF0072(url):
         return new_data
 
     data = json.loads(text)
-    print("data code == " + str(data["code"]))
+    print("KF007 工单2 data code == " + str(data["code"]) + '\n')
 
     if not data or not data["code"] or data["code"] != 200:
         new_data["code"] = data["code"]
@@ -212,13 +202,11 @@ def get_KF0072(url):
 
 def get_GooSu(url, psw):
     # TODO: 此处实现获取 goo.su 工单的代码
-    print('url get_GooSu -------' + url)
     scraper = cloudscraper.create_scraper(disableCloudflareV1=True)
     response = scraper.get(url, allow_redirects=True)
-    print('response.status_code -- ' + str(response.status_code))
     location = response.url
     #https://007.mn/staff-share-list?uuid=659707fc333d493ca33fe8c4139dcc0f
-    print("location --- " + location)
+    print('GooSu 工单1 status_code = ' + str(response.status_code) + " location = " + location + '\n')
 
     newUrl = getNewUrlByLocation(location, psw)
     if newUrl == "":
@@ -232,16 +220,15 @@ def get_GooSu(url, psw):
     return get_URL2(newUrl)
 
 def get_GooSu2(url):
+    print('GooSu 工单2 url = ' + url)
     return get_URL2(url)
 
 def get_XYZ(url, psw):
-    print('url get_xyz -------' + url)
     scraper = cloudscraper.create_scraper(disableCloudflareV1=True)
     response = scraper.get(url, allow_redirects=True)
-    print('response.status_code -- ' + str(response.status_code))
     location = response.url
     #https://007.mn/staff-share-list?uuid=659707fc333d493ca33fe8c4139dcc0f
-    print("location --- " + location)
+    print('XYZ 工单1 status_code = ' + str(response.status_code) + " location = " + location + '\n')
 
     newUrl = getNewUrlByLocation(location, psw)
     if newUrl == "":
@@ -255,14 +242,15 @@ def get_XYZ(url, psw):
     return get_URL2(newUrl)
 
 def get_XYZ2(url):
+    print('XYZ 工单2 url = ' + url + '\n')
     return get_URL2(url)
 
 def get_URL(url, psw):
     # 发送第一个请求
     scraper = cloudscraper.create_scraper(disableCloudflareV1=True)
     response = scraper.get(url, allow_redirects = True)
-    print('response.status_code -- ' + str(response.status_code))
     location = response.url
+    print('URL 工单1 status_code = ' + str(response.status_code) + " location = " + location + '\n')
     newUrl = getNewUrlByLocation(location, psw)
     if newUrl == "":
         redata = {
@@ -275,13 +263,11 @@ def get_URL(url, psw):
     return get_URL2(newUrl)
 
 def get_URL2(url):
-    print("请求 url -- " + url)
+    print("URL 工单2 url = " + url + '\n')
     scraper = cloudscraper.create_scraper(disableCloudflareV1=True, delay=1000)
     response = scraper.get(url)
 
-    print("response.status_code ==== " + str(response.status_code))
-    # print("text -- \n" + response.text)
-
+    print("URL 工单2 status_code = " + str(response.status_code) + '\n')
     new_data = {}
     if response.status_code == 403:
         new_data["code"] = 7
@@ -289,6 +275,7 @@ def get_URL2(url):
         return new_data
     
     data = json.loads(response.text)
+    print("URL 工单2 data code = " + str(data["code"]) + '\n')
     if not data or not data["code"] or data["code"] != 200:
         new_data["code"] = data["code"]
         new_data["msg"] = data["msg"]
@@ -322,7 +309,7 @@ def get_URL2(url):
     return new_data
 
 def getNewUrlByLocation(location, psw):
-    print("location ---- " + location)
+    # print("location ---- " + location)
     uuid_regex = re.compile(r"uuid=([^&]+)")
     sid_regex = re.compile(r"sid=([^&]+)")
     # 根据重定向链接获取分享链接

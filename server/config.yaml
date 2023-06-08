@@ -78,6 +78,7 @@ email:
   nickname: test
 notify:
   url: https://oapi.dingtalk.com/robot/send?access_token=d1f83181d2cf6a78b5cde2cbe6e4f1655dfd4a01757ab10aa0565e2eb5359dcf
+  get-data-url: http://localhost:5000/getData
   token: d1f83181d2cf6a78b5cde2cbe6e4f1655dfd4a01757ab10aa0565e2eb5359dcf
   secret: SECaf0ebe8d3f51a9aab41b3dcd3068525f69b58984c8578ca4a0cfb46067fbd299
 excel:

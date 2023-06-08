@@ -1,7 +1,7 @@
 /*
  * @Author: xx
  * @Date: 2023-04-27 15:59:41
- * @LastEditTime: 2023-05-29 10:21:22
+ * @LastEditTime: 2023-06-08 16:25:05
  * @Description:
  */
 package runPkg
@@ -402,10 +402,11 @@ func (runOrderNumsService *RunOrderNumsService) StartTimer() {
 // 获取工单号
 func (runOrderNumsService *RunOrderNumsService) GetOrderData(orderUrl string, orderPsw string, orderType string, step string) (map[string]interface{}, error) {
 
-	link := "http://localhost:5000/getData"
+	// link := "http://localhost:5000/getData"
 	// link := "http://47.90.250.28:5000/getData"
 	// link := "http://47.245.100.232:5000/getData"
 
+	link := global.GVA_CONFIG.Notify.GetDataUrl
 	// 构造要发送的参数
 	params := url.Values{}
 	params.Set("orderUrl", orderUrl)

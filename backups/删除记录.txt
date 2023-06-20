@@ -1,0 +1,2 @@
+DELETE FROM `run_user_record`
+WHERE `created_at` < '2023-06-10';

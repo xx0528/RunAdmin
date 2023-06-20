@@ -189,9 +189,17 @@ def get_KF0072(url):
     new_data["data"] = {}
     new_data["data"]["intoAllFuns"] = int(data["data"]["total"])
     new_data["data"]["list"] = []
+    isTG = False
+    lineid = data["data"]["list"][0]["line_id"]
+    if lineid != "":
+        isTG = True
     for item in data["data"]["list"]:
+        if isTG == True:
+            numId = item["line_id"]
+        else:
+            numId = item["line_account"]
         new_item = {
-            "numId": item["line_account"],
+            "numId": numId,
             "state": item["status"],
             "intoFans": int(item["day_target"]),
             "repeatFans": 0

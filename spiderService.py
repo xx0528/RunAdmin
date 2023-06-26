@@ -76,10 +76,15 @@ def get_data():
         print("提取工单结束 第二步 返回---" + json.dumps(data) + '\n\n')
         return data
 def get_Share(url):
-    index_html_index = url.find("index.html")
+    index_html_index = url.find("/share")
+    jointUrl = ""
+    if url.find("/share?") != -1:
+        jointUrl = "/share/index"
+    elif url.find("/share/share") != -1:
+        jointUrl = "/share/share"
     base_url = url[:index_html_index]
     token = url.split("=")[1]
-    newUrl = base_url + "/api_yinliu_count.html?token=" + token + "&page=1&limit=200&is_repet=1"
+    newUrl = base_url + jointUrl + "/api_yinliu_count.html?token=" + token + "&page=1&limit=200&is_repet=1"
     scraper = cloudscraper.create_scraper(disableCloudflareV1=True)
     response = scraper.get(newUrl, allow_redirects=True)
     print("share 工单 status_code = " + str(response.status_code) + '\n')

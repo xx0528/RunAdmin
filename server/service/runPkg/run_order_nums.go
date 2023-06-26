@@ -1,7 +1,7 @@
 /*
  * @Author: xx
  * @Date: 2023-04-27 15:59:41
- * @LastEditTime: 2023-06-26 16:29:43
+ * @LastEditTime: 2023-06-26 17:56:49
  * @Description:
  */
 package runPkg
@@ -117,6 +117,15 @@ func (runOrderNumsService *RunOrderNumsService) processOrderNumsData(content map
 		// (orderInfoMap[url][0]).NumList[0].UserNum = 10
 		numList := &orderInfoMap[url][idx].NumList
 		bAllException := true
+
+		//得到监控的号码进粉的最大数
+		maxEnterNum := 0
+		for _, numInfo := range *numList {
+			if numInfo.UserNum > maxEnterNum {
+				maxEnterNum = numInfo.UserNum
+			}
+		}
+
 		//遍历每个人加了这个工单的号码
 		for i, numInfo := range *numList {
 			//遍历工单的所有号码
@@ -162,6 +171,16 @@ func (runOrderNumsService *RunOrderNumsService) processOrderNumsData(content map
 						//自动冻结的 就不发通知了
 						// userNumMsg.Msg = fmt.Sprintf("%s号码: %s \n进粉数: %d \n超出设定限制 %d\n已被冻结\n----------------------\n", userNumMsg.Msg, numInfo.Num, numInfo.UserNum, numInfo.UserLimit)
 						userMsg = fmt.Sprintf("%s号码: %s \n进粉数: %d \n超出设定限制 %d\n已被冻结\n----------------------\n", userMsg, numInfo.Num, numInfo.UserNum, numInfo.UserLimit)
+						bUpdate = true
+						(*numList)[i].State = runPkg.NumType_Freeze
+						numInfo.State = (*numList)[i].State
+					}
+
+					if numInfo.State != runPkg.NumType_Freeze && maxEnterNum > global.GVA_CONFIG.Notify.MaxEnterCompare && numInfo.UserNum <= 0 {
+						userNumMsg.AtMobiles = append(userNumMsg.AtMobiles, reqUser.Phone)
+						//自动冻结的 就不发通知了
+						// userNumMsg.Msg = fmt.Sprintf("%s号码: %s \n进粉数: %d \n超出设定限制 %d\n已被冻结\n----------------------\n", userNumMsg.Msg, numInfo.Num, numInfo.UserNum, numInfo.UserLimit)
+						userMsg = fmt.Sprintf("%s号码: %s \n长时间无法进粉 \n已被冻结\n----------------------\n", userMsg, numInfo.Num)
 						bUpdate = true
 						(*numList)[i].State = runPkg.NumType_Freeze
 						numInfo.State = (*numList)[i].State

@@ -240,7 +240,7 @@ func (runOrderApi *RunOrderApi) GetOrderNums(c *gin.Context) {
 
 	orderType := ""
 	//云控工单
-	if strings.Contains(orderInfo.Url, "share/share") {
+	if strings.Contains(orderInfo.Url, "/share") {
 		orderType = runPkg.OrderType_Share
 		//007工单
 	} else if strings.Contains(orderInfo.Url, "kf.007.tools") {

@@ -1,7 +1,7 @@
 /*
  * @Author: xx
  * @Date: 2023-04-24 18:50:51
- * @LastEditTime: 2023-05-19 10:41:13
+ * @LastEditTime: 2023-06-26 16:36:32
  * @Description:
  */
 /*
@@ -81,6 +81,18 @@ func (runNumService *RunNumService) DeleteRunNumByIds(ids request.IdsReq, delete
 // Author [piexlmax](https://github.com/piexlmax)
 func (runNumService *RunNumService) UpdateRunNum(runNum runPkg.RunNum) (err error) {
 	err = global.GVA_DB.Save(&runNum).Error
+	return err
+}
+
+// UpdateRunNum 更新RunNum记录
+// Author [piexlmax](https://github.com/piexlmax)
+func (runNumService *RunNumService) UpdateRunNumState(runOrder runPkg.RunOrder) (err error) {
+	err = global.GVA_DB.Transaction(func(tx *gorm.DB) error {
+		if err := tx.Model(&runPkg.RunNum{}).Where("page_id = ? AND order_name = ? AND user_id = ?", runOrder.PageId, runOrder.OrderName, runOrder.UserId).Update("state", runOrder.State).Error; err != nil {
+			return err
+		}
+		return nil
+	})
 	return err
 }
 

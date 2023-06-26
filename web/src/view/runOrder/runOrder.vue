@@ -12,7 +12,7 @@
           <el-button icon="refresh" @click="onReset">重置</el-button>
         </el-form-item>
       </el-form> -->
-      <el-form :model="searchInfo" :inline="true" label-width="68px">
+      <el-form :model="searchInfo" :inline="true" label-width="68px" @keyup.enter="onSubmit">
         <el-form-item label="落地页：">
           <el-select
             v-model="searchInfo.pageName"
@@ -103,7 +103,7 @@
         />
       </div>
     </div>
-    <el-dialog v-model="dialogFormVisible" :before-close="closeDialog" title="弹窗操作">
+    <el-dialog v-model="dialogFormVisible" :before-close="closeDialog" title="弹窗操作" @keyup.enter="enterDialog">
       <el-form ref="elFormRef" :model="formData" label-position="right" :rules="rule" label-width="100px">
         <!-- <el-form-item label="工单名:" prop="orderName">
           <el-input v-model="formData.orderName" :clearable="true" placeholder="请输入" />
@@ -113,6 +113,11 @@
         </el-form-item> -->
         <el-form-item label="进粉限制:" prop="maxEnterNum">
           <el-input v-model.number="formData.maxEnterNum" :clearable="true" placeholder="请输入" />
+        </el-form-item>
+        <el-form-item label="号码状态:" prop="state">
+          <el-select v-model="formData.state" placeholder="请选择" style="width:100%" :clearable="true">
+            <el-option v-for="(item,key) in stateOptions" :key="key" :label="item.label" :value="item.value" />
+          </el-select>
         </el-form-item>
         <!-- <el-form-item label="平均进粉:" prop="eachEnterNum">
           <el-input v-model.number="formData.eachEnterNum" :clearable="true" placeholder="请输入" />
@@ -125,7 +130,7 @@
         </div>
       </template>
     </el-dialog>
-    <el-dialog v-model="addNumsFormVisible" :before-close="closeAddNums" title="弹窗操作">
+    <el-dialog v-model="addNumsFormVisible" :before-close="closeAddNums" title="弹窗操作" @keyup.enter="enterAddNums">
       <el-form ref="elAddNumsFormRef" :model="formAddNumsData" :rules="addNumsRule" label-width="120px">
         <el-row>
           <el-form-item label="落地页名" prop="pageId">

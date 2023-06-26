@@ -189,12 +189,9 @@ def get_KF0072(url):
     new_data["data"] = {}
     new_data["data"]["intoAllFuns"] = int(data["data"]["total"])
     new_data["data"]["list"] = []
-    isTG = False
-    lineid = data["data"]["list"][0]["line_id"]
-    if lineid != "":
-        isTG = True
+    
     for item in data["data"]["list"]:
-        if isTG == True:
+        if item["line_id"] and len(item["line_id"]) > 0:
             numId = item["line_id"]
         else:
             numId = item["line_account"]

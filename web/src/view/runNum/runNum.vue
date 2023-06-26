@@ -12,7 +12,7 @@
           <el-button icon="refresh" @click="onReset">重置</el-button>
         </el-form-item>
       </el-form> -->
-      <el-form :model="searchInfo" :inline="true" label-width="68px">
+      <el-form :model="searchInfo" :inline="true" label-width="68px" class="demo-form-inline" @keyup.enter="onSubmit">
         <el-form-item label="落地页：">
           <el-select
             v-model="searchInfo.page_name"
@@ -135,7 +135,7 @@
         />
       </div>
     </div>
-    <el-dialog v-model="dialogFormVisible" :before-close="closeDialog" title="弹窗操作">
+    <el-dialog v-model="dialogFormVisible" :before-close="closeDialog" title="弹窗操作" @keyup.enter="enterDialog">
       <el-form ref="elFormRef" :model="formData" label-position="right" :rules="rule" label-width="100px">
         <el-form-item v-show="type==='create'" label="工单:" prop="num">
           <el-select

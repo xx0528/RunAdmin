@@ -1,7 +1,7 @@
 /*
  * @Author: xx
  * @Date: 2023-05-09 10:23:48
- * @LastEditTime: 2023-05-12 13:54:28
+ * @LastEditTime: 2023-06-26 16:24:39
  * @Description:
  */
 // 自动生成模板RunOrder
@@ -21,6 +21,7 @@ type RunOrder struct {
 	MaxEnterNum  int    `json:"maxEnterNum" form:"maxEnterNum" gorm:"column:max_enter_num;comment:进粉限制;"`
 	EachEnterNum int    `json:"eachEnterNum" form:"eachEnterNum" gorm:"column:each_enter_num;comment:平均进粉;"`
 	UserNum      int    `json:"userNum" form:"userNum" gorm:"column:user_num;comment:绑定号码数;"`
+	State        int    `json:"state" form:"state" gorm:"column:state;comment:状态;"`
 	CreatedBy    uint   `gorm:"column:created_by;comment:创建者"`
 	UpdatedBy    uint   `gorm:"column:updated_by;comment:更新者"`
 	DeletedBy    uint   `gorm:"column:deleted_by;comment:删除者"`

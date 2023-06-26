@@ -159,6 +159,7 @@ func (runOrderApi *RunOrderApi) UpdateRunOrder(c *gin.Context) {
 	}
 
 	runOrderNumsService.UpdateRunOrder(runOrder)
+	runNumService.UpdateRunNumState(runOrder)
 }
 
 // FindRunOrder 用id查询RunOrder

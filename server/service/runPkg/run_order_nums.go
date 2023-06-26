@@ -1,7 +1,7 @@
 /*
  * @Author: xx
  * @Date: 2023-04-27 15:59:41
- * @LastEditTime: 2023-06-08 16:25:05
+ * @LastEditTime: 2023-06-26 16:29:43
  * @Description:
  */
 package runPkg
@@ -597,6 +597,10 @@ func (runOrderNumsService *RunOrderNumsService) UpdateRunOrder(runOrder runPkg.R
 			if info.UserID == runOrder.UpdatedBy && info.OrderName == runOrder.OrderName {
 				orderInfoMap[url][idx].UserAllLimit = runOrder.MaxEnterNum
 				orderInfoMap[url][idx].OrderName = runOrder.OrderName
+
+				for numIdx, _ := range orderInfoMap[url][idx].NumList {
+					orderInfoMap[url][idx].NumList[numIdx].State = runOrder.State
+				}
 				orderWarnNums[runOrder.OrderName] = 0
 			}
 		}

@@ -1,7 +1,7 @@
 /*
  * @Author: xx
  * @Date: 2023-04-24 18:55:47
- * @LastEditTime: 2023-06-01 15:51:43
+ * @LastEditTime: 2023-06-25 10:33:19
  * @Description:
  */
 package runPkg
@@ -102,6 +102,9 @@ func (runUserRecordService *RunUserRecordService) GetRunUserRecordInfoList(info 
 	}
 	if info.PageCountry != "" {
 		db = db.Where("page_country LIKE ?", "%"+info.PageCountry+"%")
+	}
+	if info.Num != "" {
+		db = db.Where("num = ?", info.Num)
 	}
 	err = db.Count(&total).Error
 	if err != nil {
